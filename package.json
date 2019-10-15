@@ -1,0 +1,19 @@
+{
+  "name": "awesome-js-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "webpack": "^4.41.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --mode=development --watch"
+  },
+  "author": "Daniel Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmhernandez2525/awesome-JS-game/issues"
+  },
+  "homepage": "https://github.com/dmhernandez2525/awesome-JS-game#readme"
+}
