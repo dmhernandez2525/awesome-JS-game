@@ -42,9 +42,9 @@ class Block {
             this.dy = 0;
         };
         if(col){
-            debugger
+            // debugger
              this.dy = 0;
-            this.distroyMe= true;
+            // this.distroyMe= true;
         };
         this.checkText({my: op.my, mx: op.mx})
         this.y += this.dy;
