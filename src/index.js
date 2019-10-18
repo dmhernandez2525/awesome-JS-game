@@ -12,17 +12,36 @@ let dy2 = 4;
 
 let mx;
 let my;
-
+let allBlocks = []
 window.onclick = (e ) => {
     mx = e.pageX;
     my = e.pageY;
+    allBlocks = allBlocks.filter((block, i) => {
+        let count = 0; 
+        debugger
+
+        if (block.checkRemove()) {
+            debugger
+        } else {
+            debugger
+            block.location = i - count
+            debugger
+            return block
+        }
+        
+    })
 } 
-let allBlocks = []
+
 let makeMore = () =>{
     let random = Math.random() * (+10 - +1) + +1;
     let text = `can u see me${random}` 
-    const block = new Block({x:(canvas.width / random),text})
-    console.log(block.text)
+    let location = allBlocks.length 
+    const block = new Block({
+        x: (canvas.width / random),
+        text,
+        location
+    })
+    // console.log(block.text)
     allBlocks.push(block)
 }
 
