@@ -8,9 +8,10 @@ class Block {
         this.dy = 4;
         this.text = op.text;
         this.location = op.location;
+        this.width = op.width;
     };
     drawBlock(c,max){
-        c.fillRect(this.x, this.y, 95, 100);
+        c.fillRect(this.x, this.y, this.width, 100);
     };
 
     checkText(op) {

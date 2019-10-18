@@ -32,20 +32,34 @@ window.onclick = (e ) => {
     })
 } 
 
+let gridAll = () => {
+    let allGrid = [];
+    for (let i = 0; i < 10; i++) {
+        let small = Math.floor(canvas.width / 10)
+        allGrid.push( small * i );
+        
+    }
+     debugger
+     return allGrid
+};
+
 let makeMore = () =>{
     let random = Math.random() * (+10 - +1) + +1;
     let text = `can u see me${random}` 
     let location = allBlocks.length 
+    let width = (canvas.width / 10)
     const block = new Block({
-        x: (canvas.width / random),
+        x: Math.floor(canvas.width / random),
         text,
-        location
+        location,
+        width
     })
     // console.log(block.text)
     allBlocks.push(block)
 }
 
 let gamePlay = () => {
+    gridAll();
     requestAnimationFrame(gamePlay);
     c.clearRect(0, 0, innerWidth,innerHeight)
     if (x > y + 150){
