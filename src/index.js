@@ -18,19 +18,68 @@ window.onclick = (e ) => {
     my = e.pageY;
     allBlocks = allBlocks.filter((block, i) => {
         let count = 0; 
-        debugger
+        // debugger
 
-        if (block.checkRemove()) {
-            debugger
+        if (block.checkRemove() ) {
+            // debugger
         } else {
-            debugger
+            // debugger
             block.location = i - count
-            debugger
+            // debugger
             return block
         }
         
     })
-} 
+};
+ let checkCol = (aocks) => {
+    let ab = aocks;
+    let allBlockDis = {};
+    let cols = [];
+    let a = false;
+    allBlocks.forEach(element => {
+        // debugger
+        let stringY = String(element.y + Math.floor(canvas.width / 10))
+        // debugger
+        if (Object.keys(allBlockDis).includes(stringY)){
+            debugger
+            // let indexCol = Object.keys(allBlockDis).indexOf(allBlockDis[stringY]);
+            cols.push(allBlockDis[stringY]);  
+            cols.push(element.location);
+            // debugger
+            a = true;
+        }
+        allBlockDis[element.y] = element.location
+    });
+    if (a){
+        // debugger
+        return cols 
+    }else{
+        return [] 
+    } 
+    // let ab = aocks;
+    // let allBlockDis = {};
+    // let cols = [];
+    // let a = false;
+    // allBlocks.forEach(element => {
+    //     // debugger
+    //     let stringY = String(element.y)
+    //     if (Object.keys(allBlockDis).includes(stringY)){
+    //         debugger
+    //         // let indexCol = Object.keys(allBlockDis).indexOf(allBlockDis[stringY]);
+    //         cols.push(allBlockDis[stringY]);  
+    //         cols.push(element.location);
+    //         // debugger
+    //         a = true;
+    //     }
+    //     allBlockDis[element.y] = element.location
+    // });
+    // if (a){
+    //     // debugger
+    //     return cols 
+    // }else{
+    //     return [] 
+    // } 
+ }
 
 let gridAll = () => {
     let allGrid = [];
@@ -39,7 +88,7 @@ let gridAll = () => {
         allGrid.push( small * i );
         
     }
-     debugger
+    //  debugger
      return allGrid
 };
 
@@ -47,7 +96,7 @@ let makeMore = () =>{
     let random = Math.random() * (+10 - +1) + +1;
     let text = `can u see me${random}` 
     let location = allBlocks.length 
-    let width = (canvas.width / 10)
+    let width = Math.floor(canvas.width / 10)
     const block = new Block({
         x: Math.floor(canvas.width / random),
         text,
@@ -66,10 +115,42 @@ let gamePlay = () => {
         y += 150
         makeMore()
     }
+    let checked = checkCol(allBlocks);
+    // debugger
+       console.log("after")
+       console.log(allBlocks)
     allBlocks.forEach(element => {
-        element.moveBlock({mx,my,innerWidth:canvas.width,innerHeight:canvas.height})
-        element.drawBlock(c, canvas.width)
+        // debugger
+        let activeCol = false 
+        if (checked.length && checked.includes(element.location)){
+            activeCol = true;
+            debugger
+        };
+        element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol)
+        // if (element.distroyMe) {
+        //     allBlocks = allBlocks.filter((block, i) => {
+        //     let count = 0;
+        //     // debugger
+
+        //     if (block.distroyMe) {
+        //         // debugger
+        //     } else {
+        //         // debugger
+        //         block.location = i - count
+        //         // debugger
+        //         return block
+        //     }
+
+        // })
+        // }else{
+            console.log(Math.floor(canvas.width / 10))
+            element.drawBlock(c, canvas.width)
+        // 
     });
+    console.log("after")
+    console.log(allBlocks)
+    // check dis
+
     
     x += 1;
 
