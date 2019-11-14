@@ -24,7 +24,7 @@ window.onclick = (e ) => {
         let count = 0; 
         // debugger
 
-        if (block.checkRemove() ) {
+        if (block.checkRemove(mx,my) ) {
             // debugger
         } else {
             // debugger
@@ -71,7 +71,6 @@ window.onclick = (e ) => {
 
                 }
                 console.log(allGrid)
-                debugger
             }
         }
         if (Object.keys(allBlockDis).includes(stringY) && allBlockDis[stringY].stringX === stringX) {
