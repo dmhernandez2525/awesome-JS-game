@@ -11,11 +11,14 @@ class Block {
         this.distroyMe = false;
     };
     drawBlock(c,max){
-        c.fillStyle = "white"
+        c.fillStyle = "purple"
         c.fillRect(this.x, this.y, this.width, this.height);
+        c.strokeRect(this.x, this.y, this.width, this.height);
         c.font = "20px Georgia";
-        c.fillStyle = "red"
-        c.fillText(this.text, this.x - this.width, this.y +( this.height / 2 ));
+        c.fillStyle = "greenyellow"
+        c.fillText(this.text, this.x + (this.width / 5 ), this.y +( this.height / 2 ));
+        c.lineWidth = 10;
+        // ctx.strokeRect(20, 20, 80, 100);
     };
 
     checkText(op) {
