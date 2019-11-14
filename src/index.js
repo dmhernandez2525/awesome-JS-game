@@ -1,7 +1,11 @@
 import Block from"./falling_block";
 let canvas = document.getElementById('canvas-area');
-canvas.width = Math.floor(window.innerWidth)
-canvas.height = Math.floor(window.innerHeight)
+let height = window.innerHeight
+let oneHight = height / 10 
+canvas.width = Math.floor(oneHight * 6)
+// canvas.width = Math.floor(window.innerWidth)
+canvas.height = Math.floor(oneHight * 6)
+// canvas.height = Math.floor(window.innerHeight)
 let c = canvas.getContext('2d');
 let x = 0;
 let spaceOfNewBLock = canvas.width / 10 * 1.2;
