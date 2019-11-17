@@ -1,5 +1,3 @@
-
-
 class Block {
     constructor(op){
         this.x = op.x;
@@ -13,14 +11,20 @@ class Block {
         this.distroyMe = false;
     };
     drawBlock(c,max){
+        c.fillStyle = "purple"
         c.fillRect(this.x, this.y, this.width, this.height);
+        c.strokeRect(this.x, this.y, this.width, this.height);
+        c.font = "20px Georgia";
+        c.fillStyle = "greenyellow"
+        c.fillText(this.text, this.x + (this.width / 5 ), this.y +( this.height / 2 ));
+        c.lineWidth = 10;
+        // ctx.strokeRect(20, 20, 80, 100);
     };
 
     checkText(op) {
         let dx = this.dx;
         let dy = this.dy;
         if (op.my + 10 > this.y && op.my - 90 < this.y && op.mx + 10 > this.x && op.mx - 90 < this.x) {
-            // console.log(`${this.text} woooooooooooooooooooooooooooooooooo`);
             console.log(this.location)
             this.dx = -dx;
             this.dy = -dy;
@@ -42,18 +46,21 @@ class Block {
             this.dy = 0;
         };
         if(col){
-            // debugger
              this.dy = 0;
-            // this.distroyMe= true;
         };
         this.checkText({my: op.my, mx: op.mx})
         this.y += this.dy;
-        // not needid for the game but make a cool screen saver
-        // this.x += this.dx;
     };
 
-    checkRemove(deleteOne){
-        if (this.location === 0 || deleteOne )return true
+    checkRemove(mx,my,question){
+        // debugger
+        if (this.x + this.width > mx && this.x - this.width < mx && this.y + this.width + (this.width / 2) > my && my + this.width > (this.y + (this.width /2))) {
+            debugger
+            if (this.text === question){
+                return true
+            }
+        }
+        return false;
     }
 
 }

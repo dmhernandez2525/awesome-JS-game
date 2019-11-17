@@ -2,10 +2,10 @@ import Block from"./falling_block";
 let canvas = document.getElementById('canvas-area');
 let height = window.innerHeight
 let oneHight = height / 10 
-canvas.width = Math.floor(oneHight * 6)
-// canvas.width = Math.floor(window.innerWidth)
-canvas.height = Math.floor(oneHight * 6)
-// canvas.height = Math.floor(window.innerHeight)
+// canvas.width = Math.floor(oneHight * 6)
+canvas.width = Math.floor(window.innerWidth)
+// canvas.height = Math.floor(oneHight * 6)
+canvas.height = Math.floor(window.innerHeight)
 let c = canvas.getContext('2d');
 let x = 0;
 let spaceOfNewBLock = canvas.width / 10 * 1.2;
@@ -20,16 +20,16 @@ let allBlocks = []
 window.onclick = (e ) => {
     mx = e.pageX;
     my = e.pageY;
+    let question = "can u see me3"
     allBlocks = allBlocks.filter((block, i) => {
         let count = 0; 
         // debugger
 
-        if (block.checkRemove() ) {
+        if (block.checkRemove(mx,my,question) ) {
             // debugger
         } else {
             // debugger
             block.location = i - count
-            // debugger
             return block
         }
         
@@ -40,9 +40,7 @@ window.onclick = (e ) => {
     let allBlockDis = {};
     let cols = [];
     let a = false;
-    // debugger
     allBlocks.forEach(element => {
-        // debugger
         let stringX = String(element.x)
         let stringY = String(element.y + element.height + element.x)
         if ((Object.keys(allBlockDis).includes(stringY))){
@@ -71,33 +69,26 @@ window.onclick = (e ) => {
 
                 }
                 console.log(allGrid)
-                debugger
             }
         }
         if (Object.keys(allBlockDis).includes(stringY) && allBlockDis[stringY].stringX === stringX) {
-            // debugger
             // let indexCol = Object.keys(allBlockDis).indexOf(allBlockDis[stringY]);
             cols.push(allBlockDis[stringY].location); //rfq old one 
             cols.push(element.location);
             a = true;
         }
         allBlockDis[element.y + element.x ] = {location:element.location, stringX}
-        // // debugger
         // let stringY = String(element.y + Math.floor(canvas.width / 10))
         // let stringYX = String(element.X )
-        // // debugger
         // if (Object.keys(allBlockDis).includes(stringY)){
-        //     debugger
         //     // let indexCol = Object.keys(allBlockDis).indexOf(allBlockDis[stringY]);
         //     cols.push(allBlockDis[stringY]);  
         //     cols.push(element.location);
-        //     // debugger
         //     a = true;
         // }
         // allBlockDis[element.y] = element.location
     });
     if (a){
-        // debugger
         return cols 
     }else{
         return [] 
@@ -107,20 +98,16 @@ window.onclick = (e ) => {
     // let cols = [];
     // let a = false;
     // allBlocks.forEach(element => {
-    //     // debugger
     //     let stringY = String(element.y)
     //     if (Object.keys(allBlockDis).includes(stringY)){
-    //         debugger
     //         // let indexCol = Object.keys(allBlockDis).indexOf(allBlockDis[stringY]);
     //         cols.push(allBlockDis[stringY]);  
     //         cols.push(element.location);
-    //         // debugger
     //         a = true;
     //     }
     //     allBlockDis[element.y] = element.location
     // });
     // if (a){
-    //     // debugger
     //     return cols 
     // }else{
     //     return [] 
@@ -134,7 +121,6 @@ let gridAll = () => {
         allGrid.push( small * i );
         
     }
-    //  debugger
      return allGrid
 };
 
@@ -150,7 +136,6 @@ let makeMore = () =>{
         location,
         width
     })
-    // console.log(block.text)
     allBlocks.push(block)
 }
 
@@ -163,28 +148,21 @@ let gamePlay = () => {
         makeMore()
     }
     let checked = checkCol(allBlocks);
-    // debugger
     //    console.log("after")
     //    console.log(allBlocks)
     allBlocks.forEach(element => {
-        // debugger
         let activeCol = false 
         if (checked.length && checked.includes(element.location)){
             activeCol = true;
-            // debugger
         };
         element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol)
         // if (element.distroyMe) {
         //     allBlocks = allBlocks.filter((block, i) => {
         //     let count = 0;
-        //     // debugger
 
         //     if (block.distroyMe) {
-        //         // debugger
         //     } else {
-        //         // debugger
         //         block.location = i - count
-        //         // debugger
         //         return block
         //     }
 
