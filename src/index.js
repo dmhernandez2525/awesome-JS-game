@@ -2,31 +2,23 @@ import Block from"./falling_block";
 import Grid from"./grid";
 
 let canvas = document.getElementById('canvas-area');
-let height = window.innerHeight
-let oneHight = height / 10 
-// canvas.width = Math.floor(oneHight * 6)
 canvas.width = Math.floor(window.innerWidth)
-// canvas.height = Math.floor(oneHight * 6)
-
 canvas.height = Math.floor(window.innerHeight)
+
 let op = {
     width: canvas.width,
     height:canvas.height,
 
 };
 let MainGrid = new Grid(op);
-
 let c = canvas.getContext('2d');
 let x = 0;
 let spaceOfNewBLock = canvas.width / 10 * 1.2;
 let y = 0;
-let dy = 4;
-let y2 = 0;
-let dy2 = 4;
-
 let mx;
 let my;
 let allBlocks = []
+
 window.onclick = (e ) => {
     mx = e.pageX;
     my = e.pageY;
@@ -41,48 +33,23 @@ window.onclick = (e ) => {
     })
 };
 
- let checkCol = (aocks) => {
-    let ab = aocks;
-    let allBlockDis = {};
+ let checkCol = () => {
     let cols = [];
-    let a = false;
+    let flag = false;
     allBlocks.forEach(element => {
-        let stringX = String(element.x)
-        let stringY = String(element.y + element.height + element.x)
-        let ay = element.y
-        let ypos = op.height - (element.y + element.height) 
-        if (MainGrid.grid[ypos] !== undefined) {
-            // console.log(MainGrid.grid[ypos])
-            // console.log(ypos)
-            // console.log(MainGrid.base)
-            if (MainGrid.grid[ypos][element.x] === ypos){
-                if (MainGrid.grid[element.y][element.x] === "nope") {
-                    console.log("hey")
-                    debugger
-                }
-            };
-
+        let ay = element.y + element.height
+        if (MainGrid.grid[ay] !== undefined) {
+            if (MainGrid.grid[element.y + element.height][element.x] === "nope"){
+                MainGrid.grid[element.y][element.x] = "nope"
+                cols.push(element.location);
+                flag = true;
+            }
         }
         if (MainGrid.base === element.y) {
             MainGrid.grid[element.y][element.x] = "nope"
         }
-        if ((Object.keys(allBlockDis).includes(stringY))){
-            if((allBlockDis[stringY].stringX === stringX) === false){
-                let allGrid = [];
-                for (let i = 0; i < 10; i++) {
-                    let small = Math.floor(canvas.width / 10)
-                    allGrid.push(small * i);
-                }
-            }
-        }
-        if (Object.keys(allBlockDis).includes(stringY) && allBlockDis[stringY].stringX === stringX) {
-            cols.push(allBlockDis[stringY].location); //rfq old one 
-            cols.push(element.location);
-            a = true;
-        }
-        allBlockDis[element.y + element.x ] = {location:element.location, stringX}
     });
-    if (a){
+    if (flag){
         return cols 
     }else{
         return [] 
@@ -117,20 +84,18 @@ let gamePlay = () => {
     requestAnimationFrame(gamePlay);
     c.clearRect(0, 0, innerWidth,innerHeight)
     if (x > y + spaceOfNewBLock) {
-        y += spaceOfNewBLock
+        y += spaceOfNewBLock;
+        makeMore();
+    };
 
-        if(allBlocks.length < 6){
-            makeMore()
-        }
-    }
     let checked = checkCol(allBlocks);
     allBlocks.forEach(element => {
-        let activeCol = false 
+        let activeCol = false;
         if (checked.length && checked.includes(element.location)){
             activeCol = true;
         };
-        element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol)
-        element.drawBlock(c, canvas.width)
+        element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol);
+        element.drawBlock(c, canvas.width);
     });
     x += 1;
 } 

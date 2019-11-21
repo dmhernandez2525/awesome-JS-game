@@ -18,7 +18,6 @@ class Block {
         c.fillStyle = "greenyellow"
         c.fillText(this.text, this.x + (this.width / 5 ), this.y +( this.height / 2 ));
         c.lineWidth = 10;
-        // ctx.strokeRect(20, 20, 80, 100);
     };
 
     checkText(op) {
@@ -53,7 +52,6 @@ class Block {
     };
 
     checkRemove(mx,my,question){
-        // debugger
         if (this.x + this.width > mx && this.x - this.width < mx && this.y + this.width + (this.width / 2) > my && my + this.width > (this.y + (this.width /2))) {
             debugger
             if (this.text === question){
