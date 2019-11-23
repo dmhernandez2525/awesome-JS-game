@@ -4,8 +4,8 @@ class Grid {
         this.width = op.width;
         this.blockLength = Math.floor(op.width / 10);
         this.blockHeight = this.blockLength;
-        this.deadPoint = Math.floor(this.height / this.blockLength);
-        this.yEnd = this.height - (this.deadPoint * this.blockLength);
+        this.deadPoint = Math.floor(this.height / this.blockLength );
+        this.yEnd = this.height - ((this.deadPoint  )* this.blockLength );
         this.makeGrid = this.makeGrid.bind(this);
         this.grid = this.makeGrid();
         this.base = this.height - this.blockHeight;
