@@ -11,8 +11,6 @@ class Block {
         this.distroyMe = false;
     };
 
-
-
     drawBlock(c,max){
         let colors = {0:"orange",1:"blue",2:"red",3:"pink",4:"purple",5:"green",6:"yellow",7:"white",8:"gray",9: "brown"}
         c.fillStyle = colors[this.text]
@@ -27,30 +25,17 @@ class Block {
     checkText(op) {
         let dx = this.dx;
         let dy = this.dy;
-        // if (op.my + 10 > this.y && op.my - 90 < this.y && op.mx + 10 > this.x && op.mx - 90 < this.x) {
-        //     this.dx = -dx;
-        //     this.dy = -dy;
-        // }
     };
     moveBlock(op, col,speed) {
-        let dx = this.dx;
-        let dy = this.dy;
-        // if ( 0 > this.x || col  ) {
-        //     this.dx = -dx;
-        // };
         if (col) {
             this.dy = 0;
         } else {
-            // this.dy = 10 ;
             this.dy = speed;
         };
 
         if (this.x + this.width >= op.innerWidth  ) {
             this.dx = 0;
         };
-        // if ( 0 > this.y || col) {
-        //     this.dy = -dy;
-        // };
         if (this.y + this.height >= op.innerHeight ) {
             this.dy = 0;
         };
@@ -69,8 +54,5 @@ class Block {
     }
 
 }
-
-
-
 
 export default Block

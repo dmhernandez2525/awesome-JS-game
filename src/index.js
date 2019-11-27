@@ -120,16 +120,10 @@ window.onclick = (e ) => {
     let flag = false;
     allBlocks.forEach(element => {
         let ay = element.y + element.height
-        debugger
-        if (MainGrid.grid[MainGrid.yEnd][element.x] === "nope" && element.y  < MainGrid.yEnd) {
-        // if (MainGrid.grid[MainGrid.yEnd + element.height][element.x] === "nope") {
-            debugger
-            // if (MainGrid.grid[element.y + element.height][element.x] === "nope" && MainGrid.yEnd === element.y ) {
+        if (MainGrid.grid[MainGrid.yEnd][element.x] === "nope" && element.y < MainGrid.yEnd) {
             gameOver = true;
         }        
-
         if (MainGrid.grid[ay] !== undefined) {
-
             if (MainGrid.grid[element.y + element.height][element.x] === "nope" ){
                 MainGrid.grid[element.y][element.x] = "nope"
                 cols.push(element.location);
@@ -164,7 +158,6 @@ let makeMore = () =>{
     let random = Math.floor(Math.random() * (+10 - +0) + +1) - 1 ;
     let randomText = Math.floor(Math.random() * (+10 - +0) + +1) - 1 ;
     if (grid[random] / widthNew === last) {
-
         if (grid[random] === 9) {
             random - 1;
         }else{
@@ -198,14 +191,12 @@ let gamePlay = () => {
             speed = 5;
             spaceOfNewBLockNew = spaceOfNewBLock / 5
             if (oldSpeed !== typeSpeed){
-                // allBlocks = []
                 oldSpeed = typeSpeed
             }
         } else if (typeSpeed === "Hard") {
             speed = 10;
             spaceOfNewBLockNew = spaceOfNewBLock / 8
             if (oldSpeed !== typeSpeed) {
-                // allBlocks = []
                 oldSpeed = typeSpeed
             }
             
