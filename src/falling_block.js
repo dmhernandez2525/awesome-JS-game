@@ -2,7 +2,7 @@ class Block {
     constructor(op){
         this.x = op.x;
         this.dx = 5;
-        this.y = 5;
+        this.y = 10;
         this.dy = 1;
         this.text = op.text;
         this.location = op.location;
@@ -10,6 +10,9 @@ class Block {
         this.height = op.width;
         this.distroyMe = false;
     };
+
+
+
     drawBlock(c,max){
         let colors = {0:"orange",1:"blue",2:"red",3:"pink",4:"purple",5:"green",6:"yellow",7:"white",8:"gray",9: "brown"}
         c.fillStyle = colors[this.text]
@@ -29,12 +32,19 @@ class Block {
         //     this.dy = -dy;
         // }
     };
-    moveBlock(op, col) {
+    moveBlock(op, col,speed) {
         let dx = this.dx;
         let dy = this.dy;
         // if ( 0 > this.x || col  ) {
         //     this.dx = -dx;
         // };
+        if (col) {
+            this.dy = 0;
+        } else {
+            // this.dy = 10 ;
+            this.dy = speed;
+        };
+
         if (this.x + this.width >= op.innerWidth  ) {
             this.dx = 0;
         };
@@ -44,15 +54,13 @@ class Block {
         if (this.y + this.height >= op.innerHeight ) {
             this.dy = 0;
         };
-        if(col){
-             this.dy = 0;
-        };
+
         this.checkText({my: op.my, mx: op.mx})
         this.y += this.dy;
     };
 
     checkRemove(mx,my,question,num){
-        if (this.x + this.width > mx && this.x - this.width < mx && this.y + this.width + (this.width / 2) > my && my + this.width > (this.y + (this.width /2))) {
+        if (this.x + this.width > mx && this.x - this.width < mx && this.y  < my && my + this.width > (this.y + (this.width /2))) {
             if (this.text === parseInt(question)) {
                 return true
             }
