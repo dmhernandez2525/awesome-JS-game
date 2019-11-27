@@ -3,17 +3,30 @@ import Grid from"./grid";
 
 let gameOverDiv = document.getElementById('gameOver');
 let canvas = document.getElementById('canvas-area');
-canvas.width = Math.floor(window.innerWidth)
-canvas.height = Math.floor(window.innerHeight)
+// canvas.width = Math.floor(window.innerWidth)
+canvas.width = Math.round(window.innerWidth / 10) * 10;
+canvas.height = Math.round(window.innerHeight / 10) * 10;
+// canvas.height = Math.floor(window.innerHeight)
 
 let op = {
-    width: canvas.width,
-    height:canvas.height,
+    width: Math.round(window.innerWidth / 10) * 10,
+    height: Math.round(window.innerHeight / 10) * 10,
+    // width: Math.floor(window.innerWidth),
+    // height: Math.floor(window.innerHeight),
 
 };
-let MainGrid = new Grid(op);
+let MainGrid;
+
+let makeMainGrid = () => {
+    op = {
+        width: Math.round(window.innerWidth / 10) * 10,
+        height:  Math.round(window.innerHeight / 10) * 10
+    };
+    MainGrid = new Grid(op);
+}
+makeMainGrid();
 let c = canvas.getContext('2d');
-let widthNew = Math.floor(window.innerWidth / 10)
+let widthNew = Math.round(window.innerWidth / 10) * 10
 let x = 0;
 let spaceOfNewBLock = canvas.width / 10 * 1.2;
 let y = 0;
@@ -25,7 +38,9 @@ let qustions = {0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9};
 let randomAns1 = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
 let randomAns2 = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
 let question = `${randomAns1 + randomAns2}`;
+let questionInt = randomAns1 + randomAns2;
 let last;
+let lastText = [];
 document.getElementById("hedder-qustion").innerHTML = `${randomAns1} + ${randomAns2}`;
 
 let score = 0;
@@ -44,6 +59,23 @@ let pointsAdd = () =>{
 
 }
 
+// window.onclick = (e ) => {
+//     mx = e.pageX;
+//     my = e.pageY;
+//     allBlocks = allBlocks.filter((block, i) => {
+//         let count = 0; 
+//         if (block.checkRemove(mx,my,question) ) {
+//             pointsAdd()
+//             if (MainGrid.grid[block.y] !== undefined ){
+//                 MainGrid.grid[block.y][block.x] = "yep"
+//             }
+//         } else {
+//             block.location = i - count
+//             return block
+//         }
+//     })
+// };
+
 window.onclick = (e ) => {
     mx = e.pageX;
     my = e.pageY;
@@ -52,6 +84,17 @@ window.onclick = (e ) => {
         if (block.checkRemove(mx,my,question) ) {
             pointsAdd()
             if (MainGrid.grid[block.y] !== undefined ){
+                let indexY = Object.keys(MainGrid.grid).indexOf(`${block.y}`);
+                let MainAll = Object.keys(MainGrid.grid);
+                for (let i = 0; i < indexY; i++) {
+                    let allVal =Object.values(MainGrid.grid);
+                    let row = allVal[i]
+                    let first = MainAll[i]
+                    let second = Object.keys(row)[block.x]
+                    MainGrid.grid[first][block.x] = "yep"
+                    
+                }
+                // Object.keys(MainGrid.grid[element.y]).indexOf(element.x.toString())
                 MainGrid.grid[block.y][block.x] = "yep"
             }
         } else {
@@ -61,6 +104,7 @@ window.onclick = (e ) => {
     })
 };
 
+
  let checkCol = () => {
     let cols = [];
     let flag = false;
@@ -68,6 +112,7 @@ window.onclick = (e ) => {
         let ay = element.y + element.height
         if (MainGrid.grid[ay] !== undefined) {
             if (MainGrid.grid[element.y + element.height][element.x] === "nope" ){
+                debugger
                 if (MainGrid.grid[element.y + element.height][element.x] === "nope" && MainGrid.yEnd === element.y ) {
                     gameOver = true;
                 }
@@ -90,7 +135,7 @@ window.onclick = (e ) => {
 let gridAll = () => {
     let allGrid = [];
     for (let i = 0; i < 10; i++) {
-        let small = Math.floor(canvas.width / 10)
+        let small = canvas.width / 10
         allGrid.push( small * i );
     }
      return allGrid
@@ -99,12 +144,13 @@ let gridAll = () => {
 let upUp = (block) => {
     debugger
 }
-
+let flag = true
 let makeMore = () =>{
     let grid = gridAll();
     let random = Math.floor(Math.random() * (+10 - +0) + +1) - 1 ;
     let randomText = Math.floor(Math.random() * (+10 - +0) + +1) - 1 ;
     if (grid[random] / widthNew === last) {
+
         if (grid[random] === 9) {
             random - 1;
         }else{
@@ -116,7 +162,7 @@ let makeMore = () =>{
     let location = allBlocks.length 
     let width = Math.floor(op.width / 10)
     const block = new Block({
-        x: Math.floor(grid[random]),
+        x: grid[random],
         text,
         location,
         width

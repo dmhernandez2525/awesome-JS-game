@@ -35,6 +35,12 @@ class Block {
         // if ( 0 > this.x || col  ) {
         //     this.dx = -dx;
         // };
+        if (col) {
+            this.dy = 0;
+        } else {
+            this.dy = 1;
+        };
+
         if (this.x + this.width >= op.innerWidth  ) {
             this.dx = 0;
         };
@@ -44,9 +50,7 @@ class Block {
         if (this.y + this.height >= op.innerHeight ) {
             this.dy = 0;
         };
-        if(col){
-             this.dy = 0;
-        };
+
         this.checkText({my: op.my, mx: op.mx})
         this.y += this.dy;
     };
