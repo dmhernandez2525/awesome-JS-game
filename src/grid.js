@@ -36,7 +36,6 @@ class Grid {
             
             grid[eleY] = row;
         }
-        debugger
         return grid;
     };
 };

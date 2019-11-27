@@ -4,11 +4,14 @@ import { timingSafeEqual } from "crypto";
 
 let gameOverDiv = document.getElementById('gameOver');
 let canvas = document.getElementById('canvas-area');
+let oldCh = document.getElementById('hedder-type').innerHTML
+let typeType;
+let typeSpeed = document.getElementById('speed-type').innerHTML;
+let oldSpeed = document.getElementById('speed-type').innerHTML;
 // canvas.width = Math.floor(window.innerWidth)
 
 canvas.width = Math.round(window.innerWidth / 100) * 100;
 canvas.height = Math.round(window.innerHeight / 100) * 100;
-debugger
 // canvas.height = Math.floor(window.innerHeight)
 
 let op = {
@@ -59,8 +62,31 @@ let pointsAdd = () =>{
 
 }
 
-
 window.onclick = (e ) => {
+    typeSpeed = document.getElementById('speed-type').innerHTML;
+    typeType = document.getElementById('hedder-type').innerHTML
+    if (oldCh !== typeType){
+            oldCh = typeType
+            let newFirst = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
+            let newSecond = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
+            randomAns1 = newSecond;
+            randomAns2 = newFirst;
+            if (typeType === "sub") {
+                document.getElementById("hedder-qustion").innerHTML = `${randomAns1} - ${randomAns2}`;
+                question = `${randomAns1 - randomAns2}`;
+            } else if (typeType === "add") {
+                document.getElementById("hedder-qustion").innerHTML = `${randomAns1} + ${randomAns2}`;
+                question = `${randomAns1 + randomAns2}`;
+            } else if (typeType === "mul") {
+                document.getElementById("hedder-qustion").innerHTML = `${randomAns1} * ${randomAns2}`;
+                question = `${randomAns1 * randomAns2}`;
+            } else {
+                // }else "div"{
+                document.getElementById("hedder-qustion").innerHTML = `${randomAns1} / ${randomAns2}`;
+                question = `${randomAns1 / randomAns2}`;
+            }
+
+    }
     mx = e.pageX;
     my = e.pageY;
     allBlocks = allBlocks.filter((block, i) => {
@@ -94,12 +120,14 @@ window.onclick = (e ) => {
     let flag = false;
     allBlocks.forEach(element => {
         let ay = element.y + element.height
+        debugger
         if (MainGrid.grid[MainGrid.yEnd][element.x] === "nope" && element.y  < MainGrid.yEnd) {
         // if (MainGrid.grid[MainGrid.yEnd + element.height][element.x] === "nope") {
             debugger
             // if (MainGrid.grid[element.y + element.height][element.x] === "nope" && MainGrid.yEnd === element.y ) {
             gameOver = true;
         }        
+
         if (MainGrid.grid[ay] !== undefined) {
 
             if (MainGrid.grid[element.y + element.height][element.x] === "nope" ){
@@ -129,7 +157,6 @@ let gridAll = () => {
 };
 
 let upUp = (block) => {
-    debugger
 }
 let flag = true
 let makeMore = () =>{
@@ -159,15 +186,38 @@ let makeMore = () =>{
 }
 
 let gamePlay = () => {
+    console.log(typeType)
     if(gameOver === false){
         requestAnimationFrame(gamePlay);
         let width = Math.floor(op.width / 10) / 2
         c.clearRect(0, 0, innerWidth,innerHeight )
-        if (x > y + spaceOfNewBLock) {
-            y += spaceOfNewBLock / 5;
+
+        let speed;
+        let spaceOfNewBLockNew;
+        if (typeSpeed === "Medium") {
+            speed = 5;
+            spaceOfNewBLockNew = spaceOfNewBLock / 5
+            if (oldSpeed !== typeSpeed){
+                // allBlocks = []
+                oldSpeed = typeSpeed
+            }
+        } else if (typeSpeed === "Hard") {
+            speed = 10;
+            spaceOfNewBLockNew = spaceOfNewBLock / 8
+            if (oldSpeed !== typeSpeed) {
+                // allBlocks = []
+                oldSpeed = typeSpeed
+            }
+            
+        } else {
+            speed = 1;
+            spaceOfNewBLockNew = spaceOfNewBLock / 1
+        }
+
+        if (x > y + spaceOfNewBLockNew) {
+            y += spaceOfNewBLockNew;
             makeMore();
         };
-
         let checked = checkCol(allBlocks);
         allBlocks.forEach(element => {
             let activeCol = false;
@@ -175,7 +225,7 @@ let gamePlay = () => {
                 activeCol = true;
                 
             };
-            element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol);
+            element.moveBlock({mx,my,innerWidth:Math.floor(canvas.width),innerHeight:Math.floor(canvas.height)},activeCol,speed);
             element.drawBlock(c, canvas.width);
         });
         x += 1;

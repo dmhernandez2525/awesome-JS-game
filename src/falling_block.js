@@ -3,13 +3,16 @@ class Block {
         this.x = op.x;
         this.dx = 5;
         this.y = 10;
-        this.dy = 20;
+        this.dy = 1;
         this.text = op.text;
         this.location = op.location;
         this.width = op.width;
         this.height = op.width;
         this.distroyMe = false;
     };
+
+
+
     drawBlock(c,max){
         let colors = {0:"orange",1:"blue",2:"red",3:"pink",4:"purple",5:"green",6:"yellow",7:"white",8:"gray",9: "brown"}
         c.fillStyle = colors[this.text]
@@ -38,8 +41,8 @@ class Block {
         if (col) {
             this.dy = 0;
         } else {
-            this.dy = 10 ;
-            // this.dy = speed;
+            // this.dy = 10 ;
+            this.dy = speed;
         };
 
         if (this.x + this.width >= op.innerWidth  ) {
@@ -57,7 +60,7 @@ class Block {
     };
 
     checkRemove(mx,my,question,num){
-        if (this.x + this.width > mx && this.x - this.width < mx && this.y + this.width + (this.width / 2) > my && my + this.width > (this.y + (this.width /2))) {
+        if (this.x + this.width > mx && this.x - this.width < mx && this.y  < my && my + this.width > (this.y + (this.width /2))) {
             if (this.text === parseInt(question)) {
                 return true
             }
