@@ -1,16 +1,19 @@
 import Block from"./falling_block";
 import Grid from"./grid";
+import { timingSafeEqual } from "crypto";
 
 let gameOverDiv = document.getElementById('gameOver');
 let canvas = document.getElementById('canvas-area');
 // canvas.width = Math.floor(window.innerWidth)
-canvas.width = Math.round(window.innerWidth / 10) * 10;
-canvas.height = Math.round(window.innerHeight / 10) * 10;
+
+canvas.width = Math.round(window.innerWidth / 100) * 100;
+canvas.height = Math.round(window.innerHeight / 100) * 100;
+debugger
 // canvas.height = Math.floor(window.innerHeight)
 
 let op = {
-    width: Math.round(window.innerWidth / 10) * 10,
-    height: Math.round(window.innerHeight / 10) * 10,
+    width: Math.round(window.innerWidth / 100) * 100,
+    height: Math.round(window.innerHeight / 100) * 100,
     // width: Math.floor(window.innerWidth),
     // height: Math.floor(window.innerHeight),
 
@@ -19,14 +22,14 @@ let MainGrid;
 
 let makeMainGrid = () => {
     op = {
-        width: Math.round(window.innerWidth / 10) * 10,
-        height:  Math.round(window.innerHeight / 10) * 10
+        width: Math.round(window.innerWidth / 100) * 100,
+        height:  Math.round(window.innerHeight / 100) * 100
     };
     MainGrid = new Grid(op);
 }
 makeMainGrid();
 let c = canvas.getContext('2d');
-let widthNew = Math.round(window.innerWidth / 10) * 10
+let widthNew = Math.round(window.innerWidth / 100) * 100
 let x = 0;
 let spaceOfNewBLock = canvas.width / 10 * 1.2;
 let y = 0;
@@ -34,13 +37,10 @@ let mx;
 let my;
 let allBlocks = [];
 let gameOver = false;
-let qustions = {0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9};
 let randomAns1 = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
 let randomAns2 = Math.floor(Math.random() * (+5 - +0) + +1) - 1;
 let question = `${randomAns1 + randomAns2}`;
-let questionInt = randomAns1 + randomAns2;
 let last;
-let lastText = [];
 document.getElementById("hedder-qustion").innerHTML = `${randomAns1} + ${randomAns2}`;
 
 let score = 0;
@@ -59,22 +59,6 @@ let pointsAdd = () =>{
 
 }
 
-// window.onclick = (e ) => {
-//     mx = e.pageX;
-//     my = e.pageY;
-//     allBlocks = allBlocks.filter((block, i) => {
-//         let count = 0; 
-//         if (block.checkRemove(mx,my,question) ) {
-//             pointsAdd()
-//             if (MainGrid.grid[block.y] !== undefined ){
-//                 MainGrid.grid[block.y][block.x] = "yep"
-//             }
-//         } else {
-//             block.location = i - count
-//             return block
-//         }
-//     })
-// };
 
 window.onclick = (e ) => {
     mx = e.pageX;
@@ -110,12 +94,15 @@ window.onclick = (e ) => {
     let flag = false;
     allBlocks.forEach(element => {
         let ay = element.y + element.height
+        if (MainGrid.grid[MainGrid.yEnd][element.x] === "nope" && element.y  < MainGrid.yEnd) {
+        // if (MainGrid.grid[MainGrid.yEnd + element.height][element.x] === "nope") {
+            debugger
+            // if (MainGrid.grid[element.y + element.height][element.x] === "nope" && MainGrid.yEnd === element.y ) {
+            gameOver = true;
+        }        
         if (MainGrid.grid[ay] !== undefined) {
+
             if (MainGrid.grid[element.y + element.height][element.x] === "nope" ){
-                debugger
-                if (MainGrid.grid[element.y + element.height][element.x] === "nope" && MainGrid.yEnd === element.y ) {
-                    gameOver = true;
-                }
                 MainGrid.grid[element.y][element.x] = "nope"
                 cols.push(element.location);
                 flag = true;
@@ -177,7 +164,7 @@ let gamePlay = () => {
         let width = Math.floor(op.width / 10) / 2
         c.clearRect(0, 0, innerWidth,innerHeight )
         if (x > y + spaceOfNewBLock) {
-            y += spaceOfNewBLock / 1;
+            y += spaceOfNewBLock / 5;
             makeMore();
         };
 

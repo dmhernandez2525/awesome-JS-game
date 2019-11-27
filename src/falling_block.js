@@ -2,8 +2,8 @@ class Block {
     constructor(op){
         this.x = op.x;
         this.dx = 5;
-        this.y = 5;
-        this.dy = 1;
+        this.y = 10;
+        this.dy = 20;
         this.text = op.text;
         this.location = op.location;
         this.width = op.width;
@@ -29,7 +29,7 @@ class Block {
         //     this.dy = -dy;
         // }
     };
-    moveBlock(op, col) {
+    moveBlock(op, col,speed) {
         let dx = this.dx;
         let dy = this.dy;
         // if ( 0 > this.x || col  ) {
@@ -38,7 +38,8 @@ class Block {
         if (col) {
             this.dy = 0;
         } else {
-            this.dy = 1;
+            this.dy = 10 ;
+            // this.dy = speed;
         };
 
         if (this.x + this.width >= op.innerWidth  ) {
